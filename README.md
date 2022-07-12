@@ -222,3 +222,51 @@ POJO는 2000년, 마틴 파울러가 컨퍼런스 준비 과정에서 만든 용
 <br/>
 <br/>
 
+
+*애노테이션은 자바5 버전에 등장했고, 자바 코드의 메타 데이터로 컴파일 또는 런타임에 활용된다.
+<br/>
+자바가 제공하는 빌트인 애노테이션과 개발자가 직접 작성할 수 있는 커스텀 애노테이션으로 분류가 되어 있다.
+<br/>
+<br/>
+
+빌트인 애노테이션 - @Override / @Deprecated 
+<br/>
+커스텀 애노테이션 - @Configuration / @Bean
+<br/>
+<br/>
+
+자바 기반의 컨테이너 구성의 핵심은 @Configuration / @Bean이 달려 있는 클래스이다.
+<br/>
+또한 이 두 애노테이션으로 구성할 수 있는 AnnotationConfigApplicationContext 클래스이다.
+<br/>
+<br/>
+
+예시 -
+<br/>
+```Java
+@Configuration	
+public class MovieBuddyFactory {
+	
+	@Bean
+	public MovieFinder movieFinder() {
+		return new MovieFinder(new CsvMovieReader());
+	}
+```
+	
+! 클래스 레벨에  Configuration을 선언하면 그 클래스는 컨테이너의 빈 구성 정보로 사용하려는 목적이다.
+그리고 매서드 레벨에 빈을 선언하면, 그 메서드는 컨테이너에 등록하고 관리할 빈 객체를 생성하고 구성 및 초기화하는 것을 나타낸다고 보면 된다.
+<br/>
+<br/>
+  
+  
+```Java	
+<beans>
+	<bean id="MovieFinder" class="com.movies.MovieFinder">
+</beans>
+```
+
+<br/>
+<br/>
+
+이렇게 xml로 작성된 내용과 자바 코드로 작성된 내용은 결국 동일하게 스프링에 빈을 등록해 주기 위한 빈 구성 정보로 활용될 수 있다.
+<br/>
